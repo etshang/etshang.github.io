@@ -1,63 +1,102 @@
 ---
 layout:     post
-title:      Hello 2017
-subtitle:    "\"Hello World, Hello Blog\""
-date:       2017-02-04
+title:      Mac 快速调出终端
+subtitle:   在Mac下为终端设置快捷键
+date:       2017-02-06
 author:     BY
-header-img: img/post-bg-2015.jpg
+header-img: img/post-bg-re-vs-ng2.jpg
 catalog: true
 tags:
-    - 生活
+    - Mac
+    - 效率
+    - 开发技巧
 ---
 
-> “🙉🙉🙉 ”
+>在Mac下快速调出终端的方法是：为终端添加一个快捷键打开方式
 
+## 为终端添加一个快捷键打开方式
 
-## 前言
+打开Mac下自带的软件 **Automator**
 
-BY 的 Blog 就这么开通了。
+![](https://ww2.sinaimg.cn/large/006tKfTcgy1fckb184f74j319v0q01kx.jpg)
 
-本来打算在年前完成 Blog 的搭建，不曾料想踩了很多坑。。。
+新建文稿
 
-[跳过废话，直接看技术实现 ](#build) 
+![](https://ww1.sinaimg.cn/large/006tKfTcgy1fckb6zzo28j30mo0fvgn7.jpg)
 
-2017 年，BY Blog 总算是搭建好了。
+创建一个服务
 
-最开始写博客是在[简书](www.jianshu.com)这个平台上，简书确实不错，支持markdown在线编辑。
+![](https://ww1.sinaimg.cn/large/006tKfTcgy1fckb93qmy5j30g00fh0vq.jpg)
 
-在一次偶然间，听到我的好基友 **阳阳** 想搭建个人主页，觉得作为一个程序员，是应该倒腾倒腾自己的Blog，于是乎就开始了撸起袖子干了。
+![](https://ww2.sinaimg.cn/large/006tKfTcgy1fckbfe8o0zj30t10lb0wv.jpg)
 
-<p id = "build"></p>
----
+![](https://ww1.sinaimg.cn/large/006tKfTcgy1fckbff4e7pj30t10lbwis.jpg)
 
-## 正文
+修改框内的脚本
 
-接下来说说搭建这个博客的技术细节。  
+```
+on run {input, parameters}
+	tell application "Terminal"
+		reopen
+		activate
+	end tell
+end run
 
-正好之前就有关注过 [GitHub Pages](https://pages.github.com/) + [Jekyll](http://jekyllrb.com/) 快速 Building Blog 的技术方案，非常轻松时尚。
+```
 
-其优点非常明显：
+运行：`command + R`，如果没有问题，则会打开终端
 
-* **Markdown** 带来的优雅写作体验
-* 非常熟悉的 Git workflow ，**Git Commit 即 Blog Post**
-* 利用 GitHub Pages 的域名和免费无限空间，不用自己折腾主机
-	* 如果需要自定义域名，也只需要简单改改 DNS 加个 CNAME 就好了 
-* Jekyll 的自定制非常容易，基本就是个模版引擎
+![](https://ww2.sinaimg.cn/large/006tKfTcgy1fckaqdd2m1j30t10lb42a.jpg)
 
+![](https://ww3.sinaimg.cn/large/006tKfTcgy1fckaq4nn9hj30iy0daaan.jpg)
 
+保存：`Command + S`，将其命名为`打开终端`或你想要的名字
 
----
+设置快捷键
 
+在 **系统偏好设置** -> **键盘设置** -> **快捷键** -> **服务**
 
-主题我直接 Downlosd 了 [Hux的博客主题](https://huangxuan.me/) 的进行修改，简单粗暴，不过遇到了很多坑😂，好在都填完了。。。
+选择我们创建好的 '**打开终端**'，设置你想要的快捷键，比我我设置了`⌘+空格`
 
-本地调试环境需要 `gem install jekyll`，结果 rubygem 的源居然被墙了，~~后来手动改成了我大淘宝的镜像源才成功~~，淘宝的源已经[停止维护](https://gems.ruby-china.org/)，换成了OSChina的源 `https://gems.ruby-china.org/`。
+![](https://ww4.sinaimg.cn/large/006tKfTcgy1fckbvaixhnj30kw0ihq67.jpg)
 
+到此，设置完成。
 
-## 后记
+聪明的你也许会发现，这个技巧能为所有的程序设置快捷启动。
 
-最后，感谢 Hux 提供的的 [Blog 主题](https://github.com/Huxpro/huxpro.github.io)
+将脚本中的 `Terminal` 替换成 其他程序就可以
 
-如果你恰好逛到了这里，希望你也能喜欢这个博客主题，感兴趣的话可以自己动手搭建一个。
+```
+on run {input, parameters}
+    tell application "Terminal"
+        reopen
+        activate
+    end tell
+end run
 
-—— BY 后记于 2017.2
+```
+
+## 黑技能
+
+既然学了 `Automator` ，那就在附上一个黑技能吧。为你的代码排序。在 **Xcode8**以前，有个插件能为代码快速排序，不过时过境迁~ 对于没用的插件而且又有患有强迫症的的小伙伴，只能手动排序了（😂）.
+
+首先还是创建一个服务
+
+创建一个`Shell`脚本，
+
+勾选:`用输出内容替换所选文本`
+
+输入：`sort|uniq` 
+
+保存： 存为`Sort & Uniq`
+
+![](https://ww4.sinaimg.cn/large/006tKfTcgy1fckd40rgwmj30rt0ildiy.jpg)
+
+**选中你的代代码** -> **鼠标右键** -> **Servies** -> **Sort&Uniq**
+
+![](https://ww2.sinaimg.cn/large/006tKfTcgy1fckd6tx1dzj30h90b7mzm.jpg)
+
+排序后的代码：
+
+![](https://ww3.sinaimg.cn/large/006tKfTcgy1fckd6lak55j309j05y3yo.jpg)
+
